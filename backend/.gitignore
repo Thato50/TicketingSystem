@@ -1,0 +1,16 @@
+/.vs/*
+**/*.suo
+**/*.user
+**/*.bak
+**/*.orig
+**/UpgradeLog.htm
+**/bin/*
+**/obj/*
+**/App_Data/Logs/*
+**/ElmahLogs/*
+Logs
+/src/BoxFusion.TicketingSystem.Web.Host/web.config
+/src/BoxFusion.TicketingSystem.Web.Host/BoxFusion.TicketingSystem.Web.Core.xml
+/sh.exe.stackdump
+
+

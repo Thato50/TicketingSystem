@@ -1,0 +1,71 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+Logs/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+!.env*.example
+*.local
+
+# Node / Next.js
+**/node_modules/
+**/.next/
+**/out/
+**/dist/
+**/coverage/
+**/.turbo/
+
+# .NET / Visual Studio
+**/bin/
+**/obj/
+**/.vs/
+**/TestResults/
+**/publish/
+
+# Runtime app data
+**/App_Data/Logs/
+**/App_Data/ElmahLogs/
+**/ElmahLogs/
+
+# Shesha uploaded config packages
+backend/src/BoxFusion.TicketingSystem.Web.Host/App_Data/Upload/*.shaconfig
+
+# Generated / temp files
+*.bak
+*.orig
+*.tmp
+*.temp
+*.cache
+sh.exe.stackdump
+
+# Database backups and local database files
+*.bacpac
+*.backup
+*.mdf
+*.ldf
+*.ndf
+*.sqlite
+*.db
+
+# Optional: Pulumi local state
+.pulumi/
+
+# Optional: legacy NuGet cache/bootstrap artifacts
+**/.nuget/packages/
