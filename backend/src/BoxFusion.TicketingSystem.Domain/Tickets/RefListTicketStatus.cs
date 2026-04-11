@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using Shesha.Domain.Attributes;
 
-namespace BoxFusion.TicketSystem.Domain.Tickets
+namespace BoxFusion.TicketingSystem.Domain.Tickets
 {
     [ReferenceList("TicketStatus")]
     public enum RefListTicketStatus : long
