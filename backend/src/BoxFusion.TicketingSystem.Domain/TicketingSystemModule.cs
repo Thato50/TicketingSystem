@@ -11,7 +11,7 @@ using Shesha.Modules;
 [assembly: DefaultIntentManaged(Mode.Fully)]
 [assembly: IntentTemplate("Boxfusion.Modules.Domain.Module", Version = "1.0")]
 
-namespace BoxFusion.TicketingSystem.Domain
+namespace BoxFusion.TicketingSystem.Domain.Tickets
 {
     [IntentManaged(Mode.Ignore)]
     /// <summary>
