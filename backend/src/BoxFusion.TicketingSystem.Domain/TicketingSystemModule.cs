@@ -11,7 +11,7 @@ using Shesha.Modules;
 [assembly: DefaultIntentManaged(Mode.Fully)]
 [assembly: IntentTemplate("Boxfusion.Modules.Domain.Module", Version = "1.0")]
 
-namespace BoxFusion.TicketingSystem.Domain.Tickets
+namespace BoxFusion.TicketingSystem.Domain
 {
     [IntentManaged(Mode.Ignore)]
     /// <summary>
@@ -28,25 +28,22 @@ namespace BoxFusion.TicketingSystem.Domain.Tickets
             FriendlyName = "TicketingSystem",
             Publisher = "BoxFusion",
         };
-        /// inheritedDoc
+
         public override void Initialize()
         {
             var thisAssembly = Assembly.GetExecutingAssembly();
             IocManager.RegisterAssemblyByConvention(thisAssembly);
 
             Configuration.Modules.AbpAutoMapper().Configurators.Add(
-                // Scan the assembly for classes which inherit from AutoMapper.Profile
                 cfg => cfg.AddMaps(thisAssembly)
             );
         }
 
-        /// inheritedDoc
         public override void PreInitialize()
         {
             base.PreInitialize();
         }
 
-        /// inheritedDoc
         public override void PostInitialize()
         {
             Configuration.Modules.AbpAspNetCore().CreateControllersForAppServices(
