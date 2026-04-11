@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Abp.Domain.Entities.Auditing;
 using Shesha.Domain;
 
-namespace BoxFusion.TicketSystem.Domain.Tickets
+namespace BoxFusion.TicketingSystem.Domain.Tickets
 {
     public class TicketComment : FullAuditedEntity<Guid>
     {
