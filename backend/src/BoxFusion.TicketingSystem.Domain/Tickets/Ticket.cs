@@ -26,9 +26,9 @@ namespace BoxFusion.TicketingSystem.Domain.Tickets
 
         public virtual RefListTicketStatus Status { get; set; } = RefListTicketStatus.Open;
 
-        public virtual Person? Requester { get; set; }
+        public virtual Guid? Requester { get; set; }
 
-        public virtual Person? AssignedTo { get; set; }
+        public virtual Guid? AssignedTo { get; set; }
     }
 
 }
