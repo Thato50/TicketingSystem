@@ -24,6 +24,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+  <ItemGroup>
+    <None Remove="ConfigMigrations\package20260412_1738.shaconfig" />
+    <None Remove="ConfigMigrations\package20260412_1145.shaconfig" />
+    <None Remove="ConfigMigrations\package20260412_2337.shaconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ConfigMigrations\package20260412_1738.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260412_1145.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260412_2337.shaconfig" />
+  </ItemGroup>
+
     <None Remove="ConfigMigrations\package20260412_2337.shaconfig" />
   </ItemGroup>
 

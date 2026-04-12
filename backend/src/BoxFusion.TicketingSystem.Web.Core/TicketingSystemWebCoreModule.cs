@@ -3,8 +3,8 @@ using Abp.Reflection.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using BoxFusion.TicketingSystem.Application;
 using BoxFusion.TicketingSystem.Domain;
+using BoxFusion.TicketingSystem.Application;
 using Shesha;
 using Shesha.Authentication.JwtBearer;
 using Shesha.Configuration;
@@ -30,8 +30,8 @@ namespace BoxFusion.TicketingSystem
         typeof(SheshaImportModule),
         typeof(SheshaClickatellModule),
         typeof(TicketingSystemModule),
-        typeof(TicketingSystemApplicationModule)
-	 )]
+        typeof(BoxFusion.TicketingSystem.Application.TicketingSystemApplicationModule)
+     )]
     public class TicketingSystemWebCoreModule : AbpModule
     {
         private readonly IConfigurationRoot _appConfiguration;

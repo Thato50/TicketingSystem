@@ -23,11 +23,11 @@ namespace BoxFusion.TicketingSystem.Application
     /// TicketingSystem Module
     /// </summary>
     [DependsOn(
-        typeof(TicketingSystemModule),
+        typeof(BoxFusion.TicketingSystem.Domain.TicketingSystemModule),
         typeof(SheshaCoreModule),
         typeof(AbpAspNetCoreModule)
     )]
-    public class TicketingSystemApplicationModule : SheshaSubModule<TicketingSystemModule>
+    public class TicketingSystemApplicationModule : SheshaSubModule<BoxFusion.TicketingSystem.Domain.TicketingSystemModule>
     {
         public override async Task<bool> InitializeConfigurationAsync()
         {
@@ -79,7 +79,7 @@ namespace BoxFusion.TicketingSystem.Application
 
             Configuration.Modules.AbpAspNetCore()
                  .CreateControllersForAppServices(
-                     typeof(TicketingSystemModule).GetAssembly()
+                     typeof(BoxFusion.TicketingSystem.Domain.TicketingSystemModule).GetAssembly()
                  );
 
             Configuration.Modules.AbpAspNetCore()
