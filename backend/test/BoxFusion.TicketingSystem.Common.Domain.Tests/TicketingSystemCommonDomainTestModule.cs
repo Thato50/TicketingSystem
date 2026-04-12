@@ -19,6 +19,7 @@ using Microsoft.Extensions.Hosting;
 using Moq;
 using NSubstitute;
 using BoxFusion.TicketingSystem.Domain;
+using BoxFusion.TicketingSystem.Domain.Tickets;
 using BoxFusion.TicketingSystem.Tests.DependencyInjection;
 using Shesha;
 using Shesha.FluentMigrator;
@@ -30,7 +31,7 @@ using System.Reflection;
 namespace BoxFusion.TicketingSystem.Common.Tests
 {
     [DependsOn(
-        typeof(TicketingSystemModule),
+        typeof(BoxFusion.TicketingSystem.Domain.TicketingSystemModule),
         typeof(AbpKernelModule),
         typeof(AbpTestBaseModule),
         typeof(SheshaApplicationModule),

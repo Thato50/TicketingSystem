@@ -7,6 +7,7 @@ using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Intent.RoslynWeaver.Attributes;
 using BoxFusion.TicketingSystem.Domain;
+using BoxFusion.TicketingSystem.Domain.Tickets;
 using Shesha;
 using Shesha.Modules;
 using Shesha.Startup;
