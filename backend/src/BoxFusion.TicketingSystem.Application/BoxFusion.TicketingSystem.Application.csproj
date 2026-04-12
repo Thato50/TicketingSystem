@@ -24,6 +24,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ConfigMigrations\package20260412_2337.shaconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ConfigMigrations\package20260412_2337.shaconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Abp" Version="9.0.0" />
     <PackageReference Include="Intent.RoslynWeaver.Attributes" Version="2.1.3" />
     <PackageReference Include="NHibernate" Version="5.5.2" />
