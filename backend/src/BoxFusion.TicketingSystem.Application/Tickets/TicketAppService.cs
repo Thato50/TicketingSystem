@@ -67,8 +67,30 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
 
         public async Task<TicketDto> GetById(EntityDto<Guid> input)
         {
+            return await GetDetails(input);
+        }
+
+        public async Task<TicketDto> GetDetails(EntityDto<Guid> input)
+        {
             var ticket = await GetTicketOrThrow(input.Id);
             return MapToDto(ticket);
+        }
+
+        public async Task<UpdateTicketInput> GetForEdit(EntityDto<Guid> input)
+        {
+            var ticket = await GetTicketOrThrow(input.Id);
+
+            return new UpdateTicketInput
+            {
+                Id = ticket.Id,
+                Title = ticket.Title,
+                Description = ticket.Description,
+                Category = ticket.Category,
+                Priority = ticket.Priority,
+                Status = ticket.Status,
+                RequesterId = ticket.RequesterId,
+                AssignedToId = ticket.AssignedToId
+            };
         }
 
         public async Task<TicketDto> Create(CreateTicketInput input)
