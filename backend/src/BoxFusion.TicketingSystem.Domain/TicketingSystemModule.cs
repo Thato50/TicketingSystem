@@ -1,5 +1,5 @@
-using System.Reflection;
 using Abp.AspNetCore.Configuration;
+using Abp.Authorization;
 using Abp.AutoMapper;
 using Abp.Modules;
 using Castle.MicroKernel.Registration;
@@ -7,6 +7,8 @@ using Intent.RoslynWeaver.Attributes;
 using Shesha;
 using Shesha.Authorization;
 using Shesha.Modules;
+using System.Reflection;
+using BoxFusion.TicketingSystem.Domain.Authorization;
 
 [assembly: DefaultIntentManaged(Mode.Fully)]
 [assembly: IntentTemplate("Boxfusion.Modules.Domain.Module", Version = "1.0")]
@@ -42,6 +44,7 @@ namespace BoxFusion.TicketingSystem.Domain
         public override void PreInitialize()
         {
             base.PreInitialize();
+            Configuration.Authorization.Providers.Add<TicketingSystemAuthorizationProvider>();
         }
 
         public override void PostInitialize()

@@ -1,7 +1,9 @@
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.UI;
+using BoxFusion.TicketingSystem.Domain.Authorization;
 using BoxFusion.TicketingSystem.Domain.Tickets;
 using Shesha.Domain;
 using System;
@@ -27,6 +29,7 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             _personRepository = personRepository;
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsComment)]
         public async Task<List<TicketCommentDto>> GetByTicket(GetTicketCommentsInput input)
         {
             await GetTicketOrThrow(input.TicketId);
@@ -41,12 +44,14 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             return await Task.FromResult(comments);
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsComment)]
         public async Task<TicketCommentDto> GetById(EntityDto<Guid> input)
         {
             var comment = await GetCommentOrThrow(input.Id);
             return MapToDto(comment);
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsComment)]
         public async Task<TicketCommentDto> Create(CreateTicketCommentInput input)
         {
             var ticket = await GetTicketOrThrow(input.TicketId);
@@ -70,6 +75,7 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             return MapToDto(comment);
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsComment)]
         public async Task<TicketCommentDto> Update(UpdateTicketCommentInput input)
         {
             var comment = await GetCommentOrThrow(input.Id);
@@ -88,6 +94,7 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             return MapToDto(comment);
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsComment)]
         public async Task Delete(EntityDto<Guid> input)
         {
             await GetCommentOrThrow(input.Id);
