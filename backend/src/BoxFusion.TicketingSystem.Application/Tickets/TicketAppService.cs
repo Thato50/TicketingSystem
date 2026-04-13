@@ -90,7 +90,21 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
         {
             var ticket = await GetTicketOrThrow(input.Id);
 
+            ValidateStatusTransition(ticket.Status, input.Status);
             ApplyTicketValues(ticket, input.Title, input.Description, input.Category, input.Priority, input.Status, input.RequesterId, input.AssignedToId);
+
+            await _ticketRepository.UpdateAsync(ticket);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return MapToDto(ticket);
+        }
+
+        public async Task<TicketDto> UpdateStatus(UpdateTicketStatusInput input)
+        {
+            var ticket = await GetTicketOrThrow(input.Id);
+
+            ValidateStatusTransition(ticket.Status, input.Status);
+            ticket.Status = input.Status;
 
             await _ticketRepository.UpdateAsync(ticket);
             await CurrentUnitOfWork.SaveChangesAsync();
@@ -140,6 +154,30 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             ticket.Status = status;
             ticket.RequesterId = requesterId;
             ticket.AssignedToId = assignedToId;
+        }
+
+        private static void ValidateStatusTransition(RefListTicketStatus currentStatus, RefListTicketStatus newStatus)
+        {
+            if (currentStatus == newStatus)
+                return;
+
+            var isAllowed = currentStatus switch
+            {
+                RefListTicketStatus.Open => newStatus == RefListTicketStatus.InProgress ||
+                                            newStatus == RefListTicketStatus.Resolved ||
+                                            newStatus == RefListTicketStatus.Closed,
+                RefListTicketStatus.InProgress => newStatus == RefListTicketStatus.Open ||
+                                                  newStatus == RefListTicketStatus.Resolved ||
+                                                  newStatus == RefListTicketStatus.Closed,
+                RefListTicketStatus.Resolved => newStatus == RefListTicketStatus.InProgress ||
+                                                newStatus == RefListTicketStatus.Open ||
+                                                newStatus == RefListTicketStatus.Closed,
+                RefListTicketStatus.Closed => newStatus == RefListTicketStatus.Open,
+                _ => false
+            };
+
+            if (!isAllowed)
+                throw new UserFriendlyException($"Cannot change ticket status from {currentStatus} to {newStatus}.");
         }
 
         private static TicketDto MapToDto(Ticket ticket)
