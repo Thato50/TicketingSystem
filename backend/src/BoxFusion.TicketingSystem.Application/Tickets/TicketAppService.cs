@@ -3,6 +3,7 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
 using Abp.UI;
 using BoxFusion.TicketingSystem.Domain.Tickets;
+using Shesha.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,14 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
     public class TicketAppService : ApplicationService
     {
         private readonly IRepository<Ticket, Guid> _ticketRepository;
+        private readonly IRepository<Person, Guid> _personRepository;
 
-        public TicketAppService(IRepository<Ticket, Guid> ticketRepository)
+        public TicketAppService(
+            IRepository<Ticket, Guid> ticketRepository,
+            IRepository<Person, Guid> personRepository)
         {
             _ticketRepository = ticketRepository;
+            _personRepository = personRepository;
         }
 
         public async Task<List<TicketDto>> GetAll()
@@ -95,6 +100,8 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
 
         public async Task<TicketDto> Create(CreateTicketInput input)
         {
+            await ValidatePersonReferences(input.RequesterId, input.AssignedToId);
+
             var ticket = new Ticket
             {
                 Id = Guid.NewGuid()
@@ -112,8 +119,39 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
         {
             var ticket = await GetTicketOrThrow(input.Id);
 
+            await ValidatePersonReferences(input.RequesterId, input.AssignedToId);
             ValidateStatusTransition(ticket.Status, input.Status);
             ApplyTicketValues(ticket, input.Title, input.Description, input.Category, input.Priority, input.Status, input.RequesterId, input.AssignedToId);
+
+            await _ticketRepository.UpdateAsync(ticket);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return MapToDto(ticket);
+        }
+
+        public async Task<TicketDto> Assign(UpdateTicketAssignmentInput input)
+        {
+            var ticket = await GetTicketOrThrow(input.Id);
+
+            if (input.AssignedToId.HasValue)
+                await GetPersonOrThrow(input.AssignedToId.Value, "Assigned user not found.");
+
+            ticket.AssignedToId = input.AssignedToId;
+
+            await _ticketRepository.UpdateAsync(ticket);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return MapToDto(ticket);
+        }
+
+        public async Task<TicketDto> UpdateRequester(UpdateTicketRequesterInput input)
+        {
+            var ticket = await GetTicketOrThrow(input.Id);
+
+            if (input.RequesterId.HasValue)
+                await GetPersonOrThrow(input.RequesterId.Value, "Requester not found.");
+
+            ticket.RequesterId = input.RequesterId;
 
             await _ticketRepository.UpdateAsync(ticket);
             await CurrentUnitOfWork.SaveChangesAsync();
@@ -148,6 +186,25 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
                 throw new UserFriendlyException("Ticket not found.");
 
             return ticket;
+        }
+
+        private async Task ValidatePersonReferences(Guid? requesterId, Guid? assignedToId)
+        {
+            if (requesterId.HasValue)
+                await GetPersonOrThrow(requesterId.Value, "Requester not found.");
+
+            if (assignedToId.HasValue)
+                await GetPersonOrThrow(assignedToId.Value, "Assigned user not found.");
+        }
+
+        private async Task<Person> GetPersonOrThrow(Guid id, string errorMessage)
+        {
+            var person = await _personRepository.FirstOrDefaultAsync(id);
+
+            if (person == null)
+                throw new UserFriendlyException(errorMessage);
+
+            return person;
         }
 
         private static void ApplyTicketValues(
