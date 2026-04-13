@@ -30,7 +30,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\BoxFusion.TicketingSystem.Domain\BoxFusion.TicketingSystem.Domain.csproj" />
-		<ProjectReference Include="..\..\src\BoxFusion.TicketingSystem.Application\BoxFusion.TicketingSystem.Application.csproj" />
 	</ItemGroup>
 
   <ItemGroup>
