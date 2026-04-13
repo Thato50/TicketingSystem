@@ -1,7 +1,9 @@
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.UI;
+using BoxFusion.TicketingSystem.Domain.Authorization;
 using BoxFusion.TicketingSystem.Domain.Tickets;
 using Shesha.Domain;
 using System;
@@ -24,6 +26,7 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             _personRepository = personRepository;
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsView)]
         public async Task<List<TicketDto>> GetAll()
         {
             var tickets = await _ticketRepository.GetAllListAsync();
@@ -34,6 +37,7 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
                 .ToList();
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsView)]
         public Task<List<TicketDto>> GetList(GetTicketsInput input)
         {
             var query = _ticketRepository.GetAll();
@@ -70,17 +74,20 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             return Task.FromResult(tickets);
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsView)]
         public async Task<TicketDto> GetById(EntityDto<Guid> input)
         {
             return await GetDetails(input);
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsView)]
         public async Task<TicketDto> GetDetails(EntityDto<Guid> input)
         {
             var ticket = await GetTicketOrThrow(input.Id);
             return MapToDto(ticket);
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsEdit)]
         public async Task<UpdateTicketInput> GetForEdit(EntityDto<Guid> input)
         {
             var ticket = await GetTicketOrThrow(input.Id);
@@ -98,6 +105,7 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             };
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsCreate)]
         public async Task<TicketDto> Create(CreateTicketInput input)
         {
             await ValidatePersonReferences(input.RequesterId, input.AssignedToId);
@@ -115,6 +123,7 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             return MapToDto(ticket);
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsEdit)]
         public async Task<TicketDto> Update(UpdateTicketInput input)
         {
             var ticket = await GetTicketOrThrow(input.Id);
@@ -129,6 +138,7 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             return MapToDto(ticket);
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsAssign)]
         public async Task<TicketDto> Assign(UpdateTicketAssignmentInput input)
         {
             var ticket = await GetTicketOrThrow(input.Id);
@@ -144,6 +154,7 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             return MapToDto(ticket);
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsAssign)]
         public async Task<TicketDto> UpdateRequester(UpdateTicketRequesterInput input)
         {
             var ticket = await GetTicketOrThrow(input.Id);
@@ -159,6 +170,7 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             return MapToDto(ticket);
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsUpdateStatus)]
         public async Task<TicketDto> UpdateStatus(UpdateTicketStatusInput input)
         {
             var ticket = await GetTicketOrThrow(input.Id);
@@ -172,6 +184,7 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             return MapToDto(ticket);
         }
 
+        [AbpAuthorize(TicketingSystemPermissions.TicketsDelete)]
         public async Task Delete(EntityDto<Guid> input)
         {
             await GetTicketOrThrow(input.Id);
