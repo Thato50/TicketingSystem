@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace BoxFusion.TicketingSystem.Application.Tickets
 {
     public class TicketDashboardSummaryDto
@@ -10,5 +12,11 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
 
         // Treat resolved tickets as closed for the current dashboard card layout.
         public int ClosedTickets { get; set; }
+
+        public List<TicketDashboardRecentTicketDto> RecentTickets { get; set; } = new();
+
+        public List<TicketDashboardGroupCountDto> TicketsByStatus { get; set; } = new();
+
+        public List<TicketDashboardGroupCountDto> TicketsByPriority { get; set; } = new();
     }
 }
