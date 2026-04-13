@@ -1,0 +1,71 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.card {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.logoBox {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #1d4ed8;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.brandName {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f1220;
+}
+
+.brandSub {
+  font-size: 11px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 1px;
+}
+
+.sheshaWrap {
+  width: 100%;
+}
+
+/* Hide Shesha logo image only — keep Welcome! and form */
+.sheshaWrap :global([data-sha-c-name="imgLogo"]),
+.sheshaWrap :global(.sha-login-logo),
+.sheshaWrap :global(img) {
+  display: none !important;
+}
+.sheshaWrap :global(.sha-login-page),
+.sheshaWrap :global([class*="login-page"]),
+.sheshaWrap :global([class*="loginPage"]),
+.sheshaWrap :global(.ant-card),
+.sheshaWrap :global([class*="container"]) {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  min-height: unset !important;
+  height: auto !important;
+}

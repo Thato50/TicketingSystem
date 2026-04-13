@@ -7,14 +7,27 @@ import {
   LOGIN_CONFIGURATION,
   PageWithLayout,
 } from "@shesha-io/reactjs";
+import styles from "./login.module.css";
 
-interface IProps {}
+const LoginPage: PageWithLayout = () => (
+  <div className={styles.page}>
+    <div className={styles.card}>
+      <div className={styles.brand}>
+        <div className={styles.logoBox}>TS</div>
+        <div>
+          <div className={styles.brandName}>TicketingSystem</div>
+          <div className={styles.brandSub}>Support Portal</div>
+        </div>
+      </div>
 
-const Login: PageWithLayout<IProps> = () => (
-  <ConfigurableForm
-    mode={"edit"}
-    formId={LOGIN_CONFIGURATION as FormFullName}
-  />
+      <div className={styles.sheshaWrap}>
+        <ConfigurableForm
+          mode={"edit"}
+          formId={LOGIN_CONFIGURATION as FormFullName}
+        />
+      </div>
+    </div>
+  </div>
 );
 
-export default Login;
+export default LoginPage;
