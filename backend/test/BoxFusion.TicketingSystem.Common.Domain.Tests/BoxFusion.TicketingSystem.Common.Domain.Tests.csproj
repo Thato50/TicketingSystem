@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
@@ -29,7 +29,7 @@
 		<PackageReference Include="Abp.TestBase" Version="9.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\BoxFusion.TicketingSystem.Domain\BoxFusion.TicketingSystem.Domain.csproj" />
+	  <ProjectReference Include="..\..\src\BoxFusion.TicketingSystem.Application\BoxFusion.TicketingSystem.Application.csproj" />
 	</ItemGroup>
 
   <ItemGroup>

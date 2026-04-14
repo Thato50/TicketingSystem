@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -28,6 +28,8 @@
     <None Remove="ConfigMigrations\package20260412_1738.shaconfig" />
     <None Remove="ConfigMigrations\package20260412_2337.shaconfig" />
     <None Remove="ConfigMigrations\package20260413_0105.shaconfig" />
+    <None Remove="ConfigMigrations\package20260414_2326.shaconfig" />
+    <None Remove="ConfigMigrations\package20260414_2327.shaconfig" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +37,8 @@
     <EmbeddedResource Include="ConfigMigrations\package20260412_1738.shaconfig" />
     <EmbeddedResource Include="ConfigMigrations\package20260412_2337.shaconfig" />
     <EmbeddedResource Include="ConfigMigrations\package20260413_0105.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260414_2326.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260414_2327.shaconfig" />
   </ItemGroup>
 
   <ItemGroup>
