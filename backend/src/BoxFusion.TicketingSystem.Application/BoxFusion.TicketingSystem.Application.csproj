@@ -24,17 +24,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ConfigMigrations\package20260412_1145.shaconfig" />
+    <None Remove="ConfigMigrations\package20260412_1738.shaconfig" />
     <None Remove="ConfigMigrations\package20260412_2337.shaconfig" />
     <None Remove="ConfigMigrations\package20260413_0105.shaconfig" />
-    <None Remove="ConfigMigrations\package20260414_0851.shaconfig" />
   </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="ConfigMigrations\package20260412_2337.shaconfig" />
-    <EmbeddedResource Include="ConfigMigrations\package20260413_0105.shaconfig" />
-    <EmbeddedResource Include="ConfigMigrations\package20260414_0851.shaconfig" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="Abp" Version="9.0.0" />
     <PackageReference Include="Intent.RoslynWeaver.Attributes" Version="2.1.3" />
