@@ -4,14 +4,9 @@
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>BoxFusion.TicketingSystem.Common</RootNamespace>
     <Nullable>enable</Nullable>
-    <!-- Optional: Embed source files within the PDBs -->
     <EmbedAllSources>true</EmbedAllSources>
-
-    <!-- Generate full debug information embedded in the DLLs -->
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
-
-    <!-- Include DLLs and XML documentation files in the NuGet package output -->
     <AllowedOutputExtensionsInPackageBuildOutput>.dll;.xml;.pdb</AllowedOutputExtensionsInPackageBuildOutput>
   </PropertyGroup>
 
@@ -28,8 +23,21 @@
     <None Remove="ConfigMigrations\package20260412_1738.shaconfig" />
     <None Remove="ConfigMigrations\package20260412_2337.shaconfig" />
     <None Remove="ConfigMigrations\package20260413_0105.shaconfig" />
+    <None Remove="ConfigMigrations\package20260415_0022 (1).shaconfig" />
+    <None Remove="ConfigMigrations\package20260415_0022.shaconfig" />
+    <None Remove="ConfigMigrations\package20260415_0023.shaconfig" />
   </ItemGroup>
-  
+
+  <ItemGroup>
+    <EmbeddedResource Include="ConfigMigrations\package20260412_1145.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260412_1738.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260412_2337.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260413_0105.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260415_0022 (1).shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260415_0022.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260415_0023.shaconfig" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Abp" Version="9.0.0" />
     <PackageReference Include="Intent.RoslynWeaver.Attributes" Version="2.1.3" />
