@@ -60,10 +60,10 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
                 query = query.Where(t => t.Status == input.Status.Value);
 
             if (input.RequesterId.HasValue)
-                query = query.Where(t => t.RequesterId == input.RequesterId.Value);
+                query = query.Where(t => t.Requester != null && t.Requester.Id == input.RequesterId.Value);
 
             if (input.AssignedToId.HasValue)
-                query = query.Where(t => t.AssignedToId == input.AssignedToId.Value);
+                query = query.Where(t => t.AssignedTo != null && t.AssignedTo.Id == input.AssignedToId.Value);
 
             var tickets = query
                 .OrderByDescending(t => t.CreationTime)
@@ -100,22 +100,23 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
                 Category = ticket.Category,
                 Priority = ticket.Priority,
                 Status = ticket.Status,
-                RequesterId = ticket.RequesterId,
-                AssignedToId = ticket.AssignedToId
+                RequesterId = ticket.Requester?.Id,
+                AssignedToId = ticket.AssignedTo?.Id
             };
         }
 
         [AbpAuthorize(TicketingSystemPermissions.TicketsCreate)]
         public async Task<TicketDto> Create(CreateTicketInput input)
         {
-            await ValidatePersonReferences(input.RequesterId, input.AssignedToId);
+            var requester = await GetPersonIfProvided(input.RequesterId, "Requester not found.");
+            var assignedTo = await GetPersonIfProvided(input.AssignedToId, "Assigned user not found.");
 
             var ticket = new Ticket
             {
                 Id = Guid.NewGuid()
             };
 
-            ApplyTicketValues(ticket, input.Title, input.Description, input.Category, input.Priority, input.Status, input.RequesterId, input.AssignedToId);
+            ApplyTicketValues(ticket, input.Title, input.Description, input.Category, input.Priority, input.Status, requester, assignedTo);
 
             await _ticketRepository.InsertAsync(ticket);
             await CurrentUnitOfWork.SaveChangesAsync();
@@ -127,10 +128,11 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
         public async Task<TicketDto> Update(UpdateTicketInput input)
         {
             var ticket = await GetTicketOrThrow(input.Id);
+            var requester = await GetPersonIfProvided(input.RequesterId, "Requester not found.");
+            var assignedTo = await GetPersonIfProvided(input.AssignedToId, "Assigned user not found.");
 
-            await ValidatePersonReferences(input.RequesterId, input.AssignedToId);
             ValidateStatusTransition(ticket.Status, input.Status);
-            ApplyTicketValues(ticket, input.Title, input.Description, input.Category, input.Priority, input.Status, input.RequesterId, input.AssignedToId);
+            ApplyTicketValues(ticket, input.Title, input.Description, input.Category, input.Priority, input.Status, requester, assignedTo);
 
             await _ticketRepository.UpdateAsync(ticket);
             await CurrentUnitOfWork.SaveChangesAsync();
@@ -143,10 +145,9 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
         {
             var ticket = await GetTicketOrThrow(input.Id);
 
-            if (input.AssignedToId.HasValue)
-                await GetPersonOrThrow(input.AssignedToId.Value, "Assigned user not found.");
-
-            ticket.AssignedToId = input.AssignedToId;
+            ticket.AssignedTo = input.AssignedToId.HasValue
+                ? await GetPersonOrThrow(input.AssignedToId.Value, "Assigned user not found.")
+                : null;
 
             await _ticketRepository.UpdateAsync(ticket);
             await CurrentUnitOfWork.SaveChangesAsync();
@@ -159,10 +160,9 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
         {
             var ticket = await GetTicketOrThrow(input.Id);
 
-            if (input.RequesterId.HasValue)
-                await GetPersonOrThrow(input.RequesterId.Value, "Requester not found.");
-
-            ticket.RequesterId = input.RequesterId;
+            ticket.Requester = input.RequesterId.HasValue
+                ? await GetPersonOrThrow(input.RequesterId.Value, "Requester not found.")
+                : null;
 
             await _ticketRepository.UpdateAsync(ticket);
             await CurrentUnitOfWork.SaveChangesAsync();
@@ -201,13 +201,11 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             return ticket;
         }
 
-        private async Task ValidatePersonReferences(Guid? requesterId, Guid? assignedToId)
+        private async Task<Person?> GetPersonIfProvided(Guid? id, string errorMessage)
         {
-            if (requesterId.HasValue)
-                await GetPersonOrThrow(requesterId.Value, "Requester not found.");
-
-            if (assignedToId.HasValue)
-                await GetPersonOrThrow(assignedToId.Value, "Assigned user not found.");
+            return id.HasValue
+                ? await GetPersonOrThrow(id.Value, errorMessage)
+                : null;
         }
 
         private async Task<Person> GetPersonOrThrow(Guid id, string errorMessage)
@@ -227,8 +225,8 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             RefListTicketCategory category,
             RefListTicketPriority priority,
             RefListTicketStatus status,
-            Guid? requesterId,
-            Guid? assignedToId)
+            Person? requester,
+            Person? assignedTo)
         {
             var cleanTitle = title?.Trim() ?? string.Empty;
             var cleanDescription = description?.Trim() ?? string.Empty;
@@ -244,8 +242,8 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
             ticket.Category = category;
             ticket.Priority = priority;
             ticket.Status = status;
-            ticket.RequesterId = requesterId;
-            ticket.AssignedToId = assignedToId;
+            ticket.Requester = requester;
+            ticket.AssignedTo = assignedTo;
         }
 
         private static void ValidateStatusTransition(RefListTicketStatus currentStatus, RefListTicketStatus newStatus)
@@ -282,8 +280,8 @@ namespace BoxFusion.TicketingSystem.Application.Tickets
                 Category = ticket.Category,
                 Priority = ticket.Priority,
                 Status = ticket.Status,
-                RequesterId = ticket.RequesterId,
-                AssignedToId = ticket.AssignedToId,
+                RequesterId = ticket.Requester?.Id,
+                AssignedToId = ticket.AssignedTo?.Id,
                 CreationTime = ticket.CreationTime,
                 LastModificationTime = ticket.LastModificationTime
             };

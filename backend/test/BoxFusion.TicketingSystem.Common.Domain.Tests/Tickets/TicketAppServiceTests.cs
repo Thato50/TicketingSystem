@@ -223,8 +223,10 @@ namespace BoxFusion.TicketingSystem.Common.Tests.Tickets
 
             assigned.AssignedToId.ShouldBe(assignedToId);
             requester.RequesterId.ShouldBe(requesterId);
-            ticket.AssignedToId.ShouldBe(assignedToId);
-            ticket.RequesterId.ShouldBe(requesterId);
+            ticket.AssignedTo.ShouldNotBeNull();
+            ticket.AssignedTo!.Id.ShouldBe(assignedToId);
+            ticket.Requester.ShouldNotBeNull();
+            ticket.Requester!.Id.ShouldBe(requesterId);
         }
 
         private static TicketAppService CreateService(List<Ticket> tickets, List<Person> people = null)
