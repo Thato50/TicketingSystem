@@ -1,6 +1,8 @@
-﻿using Abp.Domain.Entities.Auditing;
+using Abp.Domain.Entities.Auditing;
+using Shesha.Domain;
 using Shesha.Domain.Attributes;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BoxFusion.TicketingSystem.Domain.Tickets
@@ -20,7 +22,9 @@ namespace BoxFusion.TicketingSystem.Domain.Tickets
         public virtual RefListTicketPriority Priority { get; set; } = RefListTicketPriority.Medium;
         public virtual RefListTicketStatus Status { get; set; } = RefListTicketStatus.Open;
 
-        public virtual Guid? RequesterId { get; set; }
-        public virtual Guid? AssignedToId { get; set; }
+        public virtual Person? Requester { get; set; }
+        public virtual Person? AssignedTo { get; set; }
+
+        public virtual IList<TicketComment> Comments { get; set; } = new List<TicketComment>();
     }
 }
