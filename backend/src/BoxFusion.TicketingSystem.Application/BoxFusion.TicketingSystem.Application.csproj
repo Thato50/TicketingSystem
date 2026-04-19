@@ -23,11 +23,15 @@
     <None Remove="ConfigMigrations\package20260412_1738.shaconfig" />
     <None Remove="ConfigMigrations\package20260412_2337.shaconfig" />
     <None Remove="ConfigMigrations\package20260413_0105.shaconfig" />
-    <None Remove="ConfigMigrations\package20260414_2326.shaconfig" />
-    <None Remove="ConfigMigrations\package20260414_2327.shaconfig" />
-    <None Remove="ConfigMigrations\package20260415_0022 (1).shaconfig" />
-    <None Remove="ConfigMigrations\package20260415_0022.shaconfig" />
-    <None Remove="ConfigMigrations\package20260415_0023.shaconfig" />
+    <None Remove="ConfigMigrations\package20260415_0339.shaconfig" />
+    <None Remove="ConfigMigrations\package20260416_1659.shaconfig" />
+    <None Remove="ConfigMigrations\package20260419_1642.shaconfig" />
+    <None Remove="ConfigMigrations\package20260419_2217.shaconfig" />
+    <None Remove="ConfigMigrations\package20260419_2244.shaconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ConfigMigrations\package20260419_2217.shaconfig" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,9 +39,9 @@
     <EmbeddedResource Include="ConfigMigrations\package20260412_1738.shaconfig" />
     <EmbeddedResource Include="ConfigMigrations\package20260412_2337.shaconfig" />
     <EmbeddedResource Include="ConfigMigrations\package20260413_0105.shaconfig" />
-    <EmbeddedResource Include="ConfigMigrations\package20260415_0022 (1).shaconfig" />
-    <EmbeddedResource Include="ConfigMigrations\package20260415_0022.shaconfig" />
-    <EmbeddedResource Include="ConfigMigrations\package20260415_0023.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260415_0339.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260419_1642.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260419_2244.shaconfig" />
   </ItemGroup>
 
   <ItemGroup>
