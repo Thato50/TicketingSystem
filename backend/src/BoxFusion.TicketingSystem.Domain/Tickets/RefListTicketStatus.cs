@@ -1,4 +1,4 @@
-using System.ComponentModel;
+ using System.ComponentModel;
 using Shesha.Domain.Attributes;
 
 namespace BoxFusion.TicketingSystem.Domain.Tickets
