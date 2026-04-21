@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
 
 export default function HomePage() {
-  redirect('/dynamic/BoxFusion.TicketingSystem/Landing-page');
+  redirect('/no-auth/BoxFusion.TicketingSystem/Landing-page');
 }
