@@ -32,12 +32,14 @@
     <None Remove="ConfigMigrations\package20260419_2258.shaconfig" />
     <None Remove="ConfigMigrations\package20260420_1439.shaconfig" />
     <None Remove="ConfigMigrations\package20260420_1553.shaconfig" />
+    <None Remove="ConfigMigrations\package20260421_2147.shaconfig" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="ConfigMigrations\package20260419_2217.shaconfig" />
     <EmbeddedResource Include="ConfigMigrations\package20260420_1439.shaconfig" />
     <EmbeddedResource Include="ConfigMigrations\package20260420_1553.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260421_2147.shaconfig" />
   </ItemGroup>
 
   <ItemGroup>
