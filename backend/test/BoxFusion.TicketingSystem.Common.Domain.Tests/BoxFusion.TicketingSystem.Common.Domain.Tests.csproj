@@ -29,6 +29,7 @@
 		<PackageReference Include="Abp.TestBase" Version="9.0.0" />
 	</ItemGroup>
 	<ItemGroup>
+				<ProjectReference Include="..\..\src\BoxFusion.TicketingSystem.Application\BoxFusion.TicketingSystem.Application.csproj" />
 	  <ProjectReference Include="..\..\src\BoxFusion.TicketingSystem.Application\BoxFusion.TicketingSystem.Application.csproj" />
 		<ProjectReference Include="..\..\src\BoxFusion.TicketingSystem.Application\BoxFusion.TicketingSystem.Application.csproj" />
 		<ProjectReference Include="..\..\src\BoxFusion.TicketingSystem.Domain\BoxFusion.TicketingSystem.Domain.csproj" />
@@ -44,3 +45,5 @@
 	</ItemGroup>
 
 </Project>
+
+
