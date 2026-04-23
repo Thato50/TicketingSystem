@@ -33,6 +33,7 @@
     <None Remove="ConfigMigrations\package20260420_1439.shaconfig" />
     <None Remove="ConfigMigrations\package20260420_1553.shaconfig" />
     <None Remove="ConfigMigrations\package20260421_2147.shaconfig" />
+    <None Remove="ConfigMigrations\package20260423_0848.shaconfig" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +41,7 @@
     <EmbeddedResource Include="ConfigMigrations\package20260420_1439.shaconfig" />
     <EmbeddedResource Include="ConfigMigrations\package20260420_1553.shaconfig" />
     <EmbeddedResource Include="ConfigMigrations\package20260421_2147.shaconfig" />
+    <EmbeddedResource Include="ConfigMigrations\package20260423_0848.shaconfig" />
   </ItemGroup>
 
   <ItemGroup>
